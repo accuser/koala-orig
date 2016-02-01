@@ -5,6 +5,7 @@ gem 'rake'
 gem 'hanami',       '0.7.0'
 gem 'hanami-model', '~> 0.5'
 
+gem 'haml'
 
 group :test do
   gem 'minitest'
