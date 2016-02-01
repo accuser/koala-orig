@@ -1,0 +1,16 @@
+engines:
+  bundler-audit:
+    enabled: true
+  csslint:
+    enabled: true
+  duplicaiton:
+    enabled: true
+  rubocop:
+    enabled: true
+ratings:
+  paths:
+  - apps/**
+  - lib/**
+exclude_paths:
+- apps/web/vendor/**/*
+- spec/**/*
