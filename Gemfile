@@ -10,6 +10,7 @@ gem 'haml'
 group :test do
   gem 'minitest'
   gem 'capybara'
+  gem 'coveralls', require: false
 end
 
 group :production do
