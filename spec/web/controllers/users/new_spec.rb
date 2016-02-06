@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Web::Controllers::Pages::Home do
+describe Web::Controllers::Users::New do
   let(:action) { described_class.new }
   let(:params) { Hash[] }
 

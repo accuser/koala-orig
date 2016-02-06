@@ -1,12 +1,11 @@
 require 'spec_helper'
-require_relative '../../../../apps/web/controllers/pages/about'
 
 describe Web::Controllers::Pages::About do
-  let(:action) { Web::Controllers::Pages::About.new }
+  let(:action) { described_class.new }
   let(:params) { Hash[] }
 
-  it 'is successful' do
+  it "is successful" do
     response = action.call(params)
-    response[0].must_equal 200
+    expect(response[0]).to eq 200
   end
 end
