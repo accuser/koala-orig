@@ -10,7 +10,9 @@ gem 'haml'
 group :test do
   gem 'rspec'
   gem 'capybara'
+  gem 'simplecov', require: false
   gem 'coveralls', require: false
+  gem 'codeclimate-test-reporter', require: false
 end
 
 group :production do
