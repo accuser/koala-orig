@@ -13,6 +13,7 @@ ratings:
   - lib/**
 exclude_paths:
 - apps/web/vendor/**/*
+- apps/web/application.rb
 - config/environment.rb
 - lib/koala.rb
 - spec/**/*
