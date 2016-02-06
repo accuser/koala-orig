@@ -8,7 +8,7 @@ gem 'hanami-model', '~> 0.5'
 gem 'haml'
 
 group :test do
-  gem 'minitest'
+  gem 'rspec'
   gem 'capybara'
   gem 'coveralls', require: false
 end

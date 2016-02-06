@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Web::Controllers::Pages::Home do
+describe Web::Controllers::Session::Destroy do
   let(:action) { described_class.new }
   let(:params) { Hash[] }
 

@@ -1,5 +1,5 @@
-module Web::Controllers::Pages
-  class Home
+module Web::Controllers::Users
+  class New
     include Web::Action
 
     def call(params)
@@ -7,7 +7,7 @@ module Web::Controllers::Pages
 
     private
       def authenticate
-        # do nothing
+        forbidden unless current_user.nil?
       end
   end
 end
