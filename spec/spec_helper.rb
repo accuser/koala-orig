@@ -1,8 +1,27 @@
 # Require this file for unit tests
 ENV['HANAMI_ENV'] ||= 'test'
 
+require 'simplecov'
 require 'coveralls'
-Coveralls.wear!
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+])
+
+SimpleCov.start do
+  command_name 'spec'
+  add_filter 'apps/web/application.rb'
+  add_filter 'config/environment.rb'
+  add_filter 'lib/koala.rb'
+  add_filter 'spec/'
+  add_group 'Entities', 'lib/koala/entities'
+  add_group 'Mailers', 'lib/koala/mailers'
+  add_group 'Repositories', 'lib/koala/repositories'
+  add_group 'Controllers', Dir.glob('apps/*/controllers')
+  add_group 'Presenters', Dir.glob('apps/*/presenters')
+  add_group 'Views', Dir.glob('apps/*/views')
+  end
 
 require_relative '../config/environment'
 Hanami::Application.preload!
