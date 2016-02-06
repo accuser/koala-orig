@@ -1,6 +1,8 @@
 require 'hanami/helpers'
 require 'hanami/assets'
 
+require_relative './controllers/authentication'
+
 module Web
   class Application < Hanami::Application
     configure do
