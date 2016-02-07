@@ -1,3 +1,5 @@
+require 'bcrypt'
+
 class Password < Hanami::Model::Coercer
   def self.load(value)
     BCrypt::Password.new(value)
