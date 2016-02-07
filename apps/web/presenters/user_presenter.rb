@@ -3,10 +3,6 @@ module Web
     class UserPresenter
       include Hanami::Presenter
 
-      def email
-        super.downcase
-      end
-
       def email_url
         "mailto:#{email}"
       end
