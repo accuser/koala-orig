@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
 
+gem 'bundle'
 gem 'rake'
 
 gem 'hanami', '0.7.1'
-gem 'hanami-model', '0.6.1'
+gem 'hanami-model', '~> 0.5'
+
+gem 'bcrypt'
 
 gem 'haml'
 

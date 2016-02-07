@@ -4,10 +4,5 @@ module Web::Controllers::Users
 
     def call(params)
     end
-
-    private
-      def authenticate
-        forbidden unless current_user.nil?
-      end
   end
 end

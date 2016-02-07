@@ -1,25 +1,46 @@
 require 'spec_helper'
 
 describe Web::Controllers::Session::Create do
-  let(:repository) { double 'repository' }
-  let(:action) { described_class.new(repository: repository) }
+  let(:sign_in) { double 'service' }
+  let(:action) { described_class.new(sign_in: sign_in) }
+
+  context "with invalid parameters" do
+    let(:params) { Hash[ user: {} ] }
+
+    it "fails with HTTP 400" do
+      response = action.call(params)
+      expect(response[0]).to eq 400
+    end
+  end
 
   context "with valid parameters" do
-    let(:params) { Hash[ session: { email: 'alice@example.com', password: 'password' } ] }
-    let(:user) { double 'user', id: 42, token: 'T0K3N' }
+    let(:params) { Hash[ user: { email: 'alice@example.com', password: 'password' } ] }
+  
+    context "that match an existing user entity" do
+      let(:user) { double 'user', id: 42, token: 'T0K3N' }
+  
+      it "authenticates the current user" do
+        expect(sign_in).to receive(:call).and_return(user)
 
-    it "authenticates the current user" do
-      expect(repository).to receive(:user_with_email).and_return(user)
+        response = action.call(params)
+        expect(response[0]).to eq 302
+      end
 
-      response = action.call(params)
-      expect(response[0]).to eq 302
+      it "redirects the client to the new user path" do
+        expect(sign_in).to receive(:call).and_return(user)
+
+        response = action.call(params)
+        expect(response[1]['Location']).to eq '/users/42'
+      end
     end
 
-    it "redirects the client to the new user path" do
-      expect(repository).to receive(:user_with_email).and_return(user)
+    context "that don't match an existing user entity" do
+      it "fails with HTTP 422" do
+        expect(sign_in).to receive(:call).and_return(nil)
 
-      response = action.call(params)
-      expect(response[1]['Location']).to eq '/users/42'
+        response = action.call(params)
+        expect(response[0]).to eq 422
+      end
     end
   end
 end
