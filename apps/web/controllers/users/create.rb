@@ -9,23 +9,18 @@ module Web::Controllers::Users
       end
     end
 
-    def initialize(repository: UserRepository)
-      @repository = repository
+    def initialize(register_user: Koala::Services::RegisterUser)
+      @register_user = register_user
     end
 
     def call(params)
       if params.invalid?
         halt 400
-      elsif @user = @repository.create(User.new(params[:user]))
+      elsif @user = @register_user.call(params[:user])
         redirect_to routes.user_path(@user.id)
       else
         halt 422
       end
     end
-
-    private
-      def authenticate
-        forbidden unless current_user.nil?
-      end
   end
 end

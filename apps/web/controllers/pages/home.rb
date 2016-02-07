@@ -4,10 +4,5 @@ module Web::Controllers::Pages
 
     def call(params)
     end
-
-    private
-      def authenticate
-        # do nothing
-      end
   end
 end

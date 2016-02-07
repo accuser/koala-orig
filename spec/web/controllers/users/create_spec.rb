@@ -1,22 +1,22 @@
 require 'spec_helper'
 
 describe Web::Controllers::Users::Create do
-  let(:repository) { double 'repository' }
-  let(:action) { described_class.new(repository: repository) }
+  let(:register_user) { double 'service' }
+  let(:action) { described_class.new(register_user: register_user) }
 
   context "with valid parameters" do
     let(:params) { Hash[ user: { email: 'alice@example.com', password: 'password' } ] }
     let(:user) { double 'user', id: 42 }
 
     it "creates the user entity" do
-      expect(repository).to receive(:create).and_return(user)
+      expect(register_user).to receive(:call).and_return(user)
 
       response = action.call(params)
       expect(response[0]).to eq 302
     end
 
     it "redirects the client to the new user path" do
-      expect(repository).to receive(:create).and_return(user)
+      expect(register_user).to receive(:call).and_return(user)
 
       response = action.call(params)
       expect(response[1]['Location']).to eq '/users/42'
@@ -24,7 +24,7 @@ describe Web::Controllers::Users::Create do
 
     context "when the user already exists" do
       it "doesn't create the entity" do
-        expect(repository).to receive(:create).and_return(nil)
+      expect(register_user).to receive(:call).and_return(nil)
 
         response = action.call(params)
         expect(response[0]).to eq 422

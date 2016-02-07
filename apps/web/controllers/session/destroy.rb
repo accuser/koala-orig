@@ -5,10 +5,5 @@ module Web::Controllers::Session
     def call(params)
       self.current_user = nil
     end
-
-    private
-      def authenticate
-        # do nothing
-      end
   end
 end

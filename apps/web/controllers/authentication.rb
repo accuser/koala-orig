@@ -8,10 +8,6 @@ module Web
       end
 
       private
-        def authenticate
-          unauthorized if current_user.nil?
-        end
-
         def current_user
           @current_user ||= UserRepository.user_with_token(token)
         end
@@ -32,6 +28,10 @@ module Web
 
         def token
           session[:token]
+        end
+
+        def token=(token)
+          session[:token] = token
         end
 
         def unauthorized
