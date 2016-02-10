@@ -1,0 +1,16 @@
+= form_for :user, routes.password_path do
+  - div class: 'form-group row' do
+    - label :password, class: 'col-sm-2 form-control-label'
+    - div class: 'col-sm-8' do
+      - password_field :password, class: 'form-control'
+  - div class: 'form-group row' do
+    - label :new_password, class: 'col-sm-2 form-control-label'
+    - div class: 'col-sm-8' do
+      - password_field :new_password, class: 'form-control'
+  - div class: 'form-group row' do
+    - label :new_password_confirmation, class: 'col-sm-2 form-control-label'
+    - div class: 'col-sm-8' do
+      - password_field :new_password_confirmation, class: 'form-control'
+  - div class: 'form-group row' do
+    - div class: 'col-sm-offset-2 col-sm-8' do
+      - submit 'Submit', class: 'btn btn-primary'
