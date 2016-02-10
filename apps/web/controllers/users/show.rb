@@ -8,17 +8,21 @@ module Web::Controllers::Users
 
     expose :user
 
+    private
+    attr_reader :find_user
+
     def initialize(find_user: Koala::Services::FindUser)
       @find_user = find_user
     end
 
+    public
     def call(params)
       if params.invalid?
-        halt 400
-      elsif @user = @find_user.call(params)
+        self.status = 400
+      elsif @user = find_user.call(params)
         # do nothing
       else
-        halt 404
+        self.status = 404
       end
     end
   end

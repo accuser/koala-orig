@@ -9,17 +9,21 @@ module Web::Controllers::Users
       end
     end
 
+    private
+    attr_reader :register_user
+
     def initialize(register_user: Koala::Services::RegisterUser)
       @register_user = register_user
     end
 
+    public
     def call(params)
       if params.invalid?
-        halt 400
-      elsif @user = @register_user.call(params[:user])
+        self.status = 400
+      elsif @user = register_user.call(params[:user])
         redirect_to routes.user_path(@user.id)
       else
-        halt 422
+        self.status = 422
       end
     end
   end

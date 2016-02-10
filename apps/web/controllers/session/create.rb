@@ -9,17 +9,21 @@ module Web::Controllers::Session
       end
     end
 
-    def initialize(sign_in: Koala::Services::SignIn)
-      @sign_in = sign_in
+    private
+    attr_reader :authenticate_user
+
+    def initialize(authenticate_user: Koala::Services::AuthenticateUser)
+      @authenticate_user = authenticate_user
     end
 
+    public
     def call(params)
       if params.invalid?
-        halt 400
-      elsif self.current_user = @sign_in.call(params[:user])
+        self.status = 400
+      elsif self.current_user = authenticate_user.call(params[:user])
         redirect_to routes.user_path(id: current_user.id)
       else
-        halt 422
+        self.status = 422
       end
     end
   end
