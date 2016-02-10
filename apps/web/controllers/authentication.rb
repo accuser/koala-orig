@@ -8,34 +8,28 @@ module Web
       end
 
       private
+        def auth_token
+          session[:token]
+        end
+
+        def auth_token=(token)
+          session[:token] = token
+
+          @current_user = nil
+        end
+
         def current_user
-          @current_user ||= UserRepository.user_with_token(token)
+          @current_user ||= UserRepository.user_with_token(auth_token)
         end
 
         def current_user=(user)
           if user.nil?
-            session[:token] = nil
+            self.auth_token = nil
           else
-            session[:token] = user.token
+            self.auth_token = user.auth_token
           end
 
           @current_user = user
-        end
-
-        def forbidden
-          halt 403
-        end
-
-        def token
-          session[:token]
-        end
-
-        def token=(token)
-          session[:token] = token
-        end
-
-        def unauthorized
-          halt 401
         end
     end
   end
