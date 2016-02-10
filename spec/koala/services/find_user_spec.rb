@@ -6,11 +6,23 @@ describe Koala::Services::FindUser do
   let(:repository) { double 'repository' }
   let(:service) { described_class.new(repository: repository) }
 
-  it "finds an exisiting user entity" do
-    expect(repository).to receive(:find).with(42).and_return(user)
+  context "with a matching id" do
+    it "returns the user entity" do
+      expect(repository).to receive(:find).with(42).and_return(user)
 
-    result = service.call(params)
+      response = service.call(params)
+      
+      expect(response).to eq user
+    end
+  end
 
-    expect(result).to eq user
+  context "without a matching id" do
+    it "returns nil" do
+      expect(repository).to receive(:find).with(42).and_return(nil)
+
+      response = service.call(params)
+      
+      expect(response).to be_nil
+    end
   end
 end

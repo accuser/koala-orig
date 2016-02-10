@@ -24,7 +24,7 @@ describe Web::Controllers::Users::Create do
 
     context "when the user already exists" do
       it "doesn't create the entity" do
-      expect(register_user).to receive(:call).and_return(nil)
+        expect(register_user).to receive(:call).and_return(nil)
 
         response = action.call(params)
         expect(response[0]).to eq 422
@@ -39,5 +39,5 @@ describe Web::Controllers::Users::Create do
       response = action.call(params)
       expect(response[0]).to eq 400
     end
-  end 
+  end
 end
