@@ -1,0 +1,13 @@
+= form_for :user, routes.session_path do
+  - div class: 'form-group row' do
+    - label :email, class: 'col-sm-2 form-control-label'
+    - div class: 'col-sm-8' do
+      - text_field :email, class: 'form-control'
+      - small "We'll never share your email with anyone else.", class: 'text-muted'
+  - div class: 'form-group row' do
+    - label :password, class: 'col-sm-2 form-control-label'
+    - div class: 'col-sm-8' do
+      - password_field :password, class: 'form-control'
+  - div class: 'form-group row' do
+    - div class: 'col-sm-offset-2 col-sm-8' do
+      - submit 'Submit', class: 'btn btn-primary'
