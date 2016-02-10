@@ -16,7 +16,9 @@
   </head>
   <body>
     <%= render partial: 'shared/header' %>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
     <%= render partial: 'shared/footer' %>
     <%= javascript 'jquery', 'bootstrap', 'application' %>
   </body>
