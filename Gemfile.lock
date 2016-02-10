@@ -28,7 +28,7 @@ GEM
     dotenv (2.1.0)
     haml (4.0.7)
       tilt
-    hanami (0.7.1)
+    hanami (0.7.2)
       bundler (~> 1.6)
       dotenv (~> 2.0)
       hanami-assets (~> 0.2)
@@ -131,7 +131,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   coveralls
   haml
-  hanami (= 0.7.1)
+  hanami (~> 0.7)
   hanami-model (~> 0.5)
   rake
   rspec
