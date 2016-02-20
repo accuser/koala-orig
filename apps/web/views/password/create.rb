@@ -1,7 +1,7 @@
 module Web
   module Views
-    module Session
-      class Destroy
+    module Password
+      class Create
         include Web::View
       end
     end

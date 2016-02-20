@@ -1,8 +1,13 @@
-module Web::Controllers::Pages
-  class Home
-    include Web::Action
+module Web
+  module Controllers
+    module Pages
+      # Endpoint for GET /
+      class Home
+        include Web::Action
 
-    def call(params)
+        def call(_)
+        end
+      end
     end
   end
 end

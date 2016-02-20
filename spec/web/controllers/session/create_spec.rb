@@ -1,15 +1,19 @@
 require 'spec_helper'
 
 describe Web::Controllers::Session::Create do
-  let(:authenticate_user) { double 'service' }
-  let(:action) { described_class.new(authenticate_user: authenticate_user) }
+  let(:email_authenticator) { double 'email_authenticator' }
+  let(:action) { described_class.new(email_authenticator: email_authenticator) }
 
   context "with invalid parameters" do
     let(:params) { Hash[ user: {} ] }
 
-    it "fails with HTTP 400" do
+    it "fails with HTTP 422" do
+      allow(email_authenticator).to receive(:new).and_return(email_authenticator)
+      allow(email_authenticator).to receive(:call).and_return(email_authenticator)
+      allow(email_authenticator).to receive(:success?).and_return(false)
+
       response = action.call(params)
-      expect(response[0]).to eq 400
+      expect(response[0]).to eq 422
     end
   end
 
@@ -20,14 +24,21 @@ describe Web::Controllers::Session::Create do
       let(:user) { double 'user', id: 42, auth_token: 'T0K3N' }
 
       it "authenticates the current user" do
-        expect(authenticate_user).to receive(:call).and_return(user)
+        expect(email_authenticator).to receive(:new).and_return(email_authenticator)
+        expect(email_authenticator).to receive(:call).and_return(email_authenticator)
+        expect(email_authenticator).to receive(:success?).and_return(true)
+        expect(email_authenticator).to receive(:user).and_return(user)
 
         response = action.call(params)
+
         expect(response[0]).to eq 302
       end
 
       it "redirects the client to the new user path" do
-        expect(authenticate_user).to receive(:call).and_return(user)
+        allow(email_authenticator).to receive(:new).and_return(email_authenticator)
+        allow(email_authenticator).to receive(:call).and_return(email_authenticator)
+        allow(email_authenticator).to receive(:success?).and_return(true)
+        allow(email_authenticator).to receive(:user).and_return(user)
 
         response = action.call(params)
         expect(response[1]['Location']).to eq '/users/42'
@@ -36,7 +47,9 @@ describe Web::Controllers::Session::Create do
 
     context "that don't match an existing user entity" do
       it "fails with HTTP 422" do
-        expect(authenticate_user).to receive(:call).and_return(nil)
+        allow(email_authenticator).to receive(:new).and_return(email_authenticator)
+        allow(email_authenticator).to receive(:call).and_return(email_authenticator)
+        expect(email_authenticator).to receive(:success?).and_return(false)
 
         response = action.call(params)
         expect(response[0]).to eq 422

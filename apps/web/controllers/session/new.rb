@@ -1,9 +1,14 @@
-module Web::Controllers::Session
-  class New
-    include Web::Action
-    
-    def call(params)
-      self.current_user = nil
+module Web
+  module Controllers
+    module Session
+      # Endpoint for GET /session/new
+      class New
+        include Web::Action
+
+        def call(_)
+          self.current_user = nil
+        end
+      end
     end
   end
 end

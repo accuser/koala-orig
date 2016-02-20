@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Web::Controllers::Users::New do
+describe Web::Controllers::Password::New do
   let(:action) { described_class.new }
   let(:params) { Hash[] }
 
-  it "is successful" do
+  it 'is successful' do
     response = action.call(params)
     expect(response[0]).to eq 200
   end

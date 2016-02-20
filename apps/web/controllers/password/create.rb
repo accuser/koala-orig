@@ -1,8 +1,8 @@
 module Web
   module Controllers
     module Password
-      # Endpoint for GET /password/edit
-      class Edit
+      # Endpoint for POST /password
+      class Create
         include Web::Action
 
         def call(_)

@@ -4,5 +4,7 @@ collection :users do
 
   attribute :id, Integer
   attribute :email, String
-  attribute :password, Password
+  attribute :password, Koala::Password
+  attribute :first_name, String
+  attribute :last_name, String
 end

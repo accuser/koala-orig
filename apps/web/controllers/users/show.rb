@@ -1,28 +1,27 @@
-module Web::Controllers::Users
-  class Show
-    include Web::Action
+module Web
+  module Controllers
+    module Users
+      # Endpoint for GET /users/:id
+      class Show
+        include Web::Action
 
-    params do
-      param :id, presence: true
-    end
+        expose :user
 
-    expose :user
+        private
 
-    private
-    attr_reader :find_user
+        attr_reader :user_repository
 
-    def initialize(find_user: Koala::Services::FindUser)
-      @find_user = find_user
-    end
+        def initialize(user_repository: UserRepository)
+          @user_repository = user_repository
+        end
 
-    public
-    def call(params)
-      if params.invalid?
-        self.status = 400
-      elsif @user = find_user.call(params)
-        # do nothing
-      else
-        self.status = 404
+        public
+
+        def call(params)
+          unless @user = user_repository.find(params[:id])
+            halt 404
+          end
+        end
       end
     end
   end
